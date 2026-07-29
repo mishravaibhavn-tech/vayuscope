@@ -30,10 +30,16 @@ async def fetch_weather(lat: float, lon: float) -> dict:
         "forecast_days": 7,
         "wind_speed_unit": "kmh",
     }
-    async with httpx.AsyncClient(timeout=15) as client:
-        r = await client.get(FORECAST_URL, params=params)
-        r.raise_for_status()
-        return r.json()
+    last_error = None
+    for _ in range(2):
+        try:
+            async with httpx.AsyncClient(timeout=40) as client:
+                r = await client.get(FORECAST_URL, params=params)
+                r.raise_for_status()
+                return r.json()
+        except httpx.HTTPError as e:
+            last_error = e
+    raise last_error
 
 
 async def geocode(query: str) -> list:

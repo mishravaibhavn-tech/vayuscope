@@ -1,4 +1,4 @@
-const BASE = (import.meta.env.VITE_API_URL || '') + '/api'
+const BASE = (import.meta.env.VITE_API_URL || 'https://vayuscope-backend.onrender.com') + '/api'
 
 export async function searchPlaces(q) {
   const res = await fetch(`${BASE}/search?q=${encodeURIComponent(q)}`)
