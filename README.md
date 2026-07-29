@@ -60,7 +60,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173
+Open (https://vayuscope.vercel.app/)
 
 The frontend proxies `/api` calls to the backend automatically, so start the
 backend first.
