@@ -43,8 +43,8 @@ async def weather(lat: float, lon: float, name: str = "Selected location"):
     """Return live conditions + 7-day forecast for a coordinate and log the lookup."""
     try:
         data = await ws.fetch_weather(lat, lon)
-    except httpx.HTTPError:
-        raise HTTPException(status_code=502, detail="Weather service unavailable")
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Weather error: {type(e).__name__}: {e}")
 
     current = data.get("current", {})
     db = SessionLocal()
